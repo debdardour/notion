@@ -3,33 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minuteur</title>
+  <title>Modern Timer</title>
 
   <style>
     body {
-      background-color: aliceblue;
+      background-color: #f4f4f4;
       font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
 
     .container {
-      background-color: #f4f4e8;
+      background-color: #fff;
       padding: 30px;
-      max-width: 300px;
-      margin: 50px auto;
-      border-radius: 15px;
-      box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2);
+      max-width: 350px;
+      border-radius: 20px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
       text-align: center;
-      color: #000B9A;
+      color: #333;
     }
 
     #display {
-      font-size: 3.5em;
+      font-size: 4em;
       font-family: 'Courier New', Courier, monospace;
       margin-bottom: 20px;
-      color: #000B9A;
-      background-color: #dfe5e5;
+      color: #333;
+      background-color: #e0e0e0;
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 15px;
     }
 
     .manual-entry {
@@ -44,8 +48,9 @@
       padding: 10px;
       width: 150px;
       text-align: center;
-      border: 2px solid #000B9A;
-      border-radius: 5px;
+      border: 2px solid #00BFA6;
+      border-radius: 10px;
+      outline: none;
     }
 
     .buttons {
@@ -56,15 +61,15 @@
     }
 
     .buttons button {
-      background-color: #000B9A;
+      background-color: #00BFA6;
       border: none;
       color: white;
       font-size: 1.2em;
       padding: 10px;
       border-radius: 50%;
-      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
       cursor: pointer;
-      transition: 0.1s ease-in-out;
+      transition: 0.2s ease-in-out;
     }
 
     .buttons button:active {
@@ -72,15 +77,16 @@
     }
 
     .preset-minutes {
-      border: 2px solid #d0d0d0;
+      border: 2px solid #00BFA6;
       border-radius: 10px;
-      padding: 10px;
+      padding: 15px;
       margin-top: 20px;
     }
 
     .preset-minutes-title {
       font-size: 1.3em;
       margin-bottom: 10px;
+      color: #00BFA6;
     }
 
     .preset-buttons {
@@ -90,7 +96,7 @@
     }
 
     .preset-buttons button {
-      background-color: #e3a86b;
+      background-color: #FF8A65;
       border: none;
       color: white;
       font-size: 1em;
@@ -104,6 +110,30 @@
     .preset-buttons button:active {
       transform: scale(0.95);
     }
+
+    /* New buttons for adding/subtracting 30 seconds */
+    .adjust-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin: 15px 0;
+      gap: 10px;
+    }
+
+    .adjust-buttons button {
+      background-color: #FFA726;
+      border: none;
+      color: white;
+      font-size: 1em;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    .adjust-buttons button:active {
+      transform: scale(0.95);
+    }
+
   </style>
 
 </head>
@@ -121,6 +151,12 @@
     <div class="buttons">
       <button onclick="start()">▶</button>
       <button onclick="cancel()">∎</button>
+    </div>
+
+    <!-- Nouveaux boutons pour ajuster le timer par 30 secondes -->
+    <div class="adjust-buttons">
+      <button onclick="adjustTimer(30)">+30s</button>
+      <button onclick="adjustTimer(-30)">-30s</button>
     </div>
 
     <!-- Section pour régler le minuteur sur des durées spécifiques -->
@@ -184,6 +220,12 @@
       clearInterval(timer);
       isRunning = false;
       timeLeft = minutes * 60;
+      updateDisplay();
+    }
+
+    function adjustTimer(seconds) {
+      timeLeft += seconds;
+      if (timeLeft < 0) timeLeft = 0;
       updateDisplay();
     }
 
