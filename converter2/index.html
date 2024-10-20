@@ -20,7 +20,7 @@
       background-color: #3a3a3c;
       padding: 20px;
       width: 100%;
-      max-width: 400px; /* Slightly wider */
+      max-width: 400px; /* Largeur fixe mais raisonnable */
       border-radius: 20px;
       box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
       text-align: center;
@@ -44,17 +44,19 @@
       text-align: center;
       border: 1px solid #444;
       background-color: #4a4a4c;
+      word-wrap: break-word; /* Permet de mieux gérer le texte */
     }
 
     th {
       background-color: #6d3cc2;
       color: white;
+      font-size: 0.85em; /* Taille ajustée pour éviter les débordements */
     }
 
     td input {
       width: 100%;
       padding: 8px;
-      font-size: 0.9em;
+      font-size: 0.85em; /* Réduction de la taille pour plus d'espace */
       text-align: center;
       background-color: #3a3a3c;
       color: #f5f5f7;
@@ -95,7 +97,6 @@
     .reset-btn:hover {
       background-color: #e66f00;
     }
-
   </style>
 </head>
 
