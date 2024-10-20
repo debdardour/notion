@@ -7,8 +7,8 @@
 
   <style>
     body {
-      background-color: #f4f4f4;
-      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,76 +17,111 @@
     }
 
     .container {
-      background-color: #fff;
-      padding: 30px;
-      max-width: 350px;
-      border-radius: 20px;
-      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      padding: 40px;
+      max-width: 400px;
+      border-radius: 30px;
+      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.1);
       text-align: center;
-      color: #333;
+      color: #1d1d1f;
     }
 
     #display {
-      font-size: 4em;
-      font-family: 'Courier New', Courier, monospace;
+      font-size: 5em;
+      font-weight: 600;
       margin-bottom: 20px;
-      color: #333;
-      background-color: #e0e0e0;
+      color: #000000;
+      background-color: #f0f0f5;
       padding: 20px;
-      border-radius: 15px;
+      border-radius: 20px;
+      letter-spacing: -2px;
     }
 
     .manual-entry {
       display: flex;
       justify-content: center;
-      margin: 10px 0;
+      margin: 20px 0;
       align-items: center;
     }
 
     .manual-entry input {
-      font-size: 1.2em;
-      padding: 10px;
-      width: 150px;
+      font-size: 1.5em;
+      padding: 15px;
+      width: 180px;
       text-align: center;
-      border: 2px solid #00BFA6;
-      border-radius: 10px;
+      border: 2px solid #0071e3;
+      border-radius: 12px;
       outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .manual-entry input:focus {
+      border-color: #005bb5;
     }
 
     .buttons {
       margin: 20px 0;
       display: flex;
       justify-content: center;
-      gap: 10px;
+      gap: 15px;
     }
 
     .buttons button {
-      background-color: #00BFA6;
+      background-color: #0071e3;
       border: none;
       color: white;
-      font-size: 1.2em;
-      padding: 10px;
+      font-size: 1.5em;
+      padding: 15px;
       border-radius: 50%;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
       cursor: pointer;
-      transition: 0.2s ease-in-out;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    .buttons button:hover {
+      background-color: #005bb5;
     }
 
     .buttons button:active {
       transform: scale(0.95);
     }
 
+    .adjust-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      gap: 15px;
+    }
+
+    .adjust-buttons button {
+      background-color: #ff9500;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    .adjust-buttons button:hover {
+      background-color: #cc7a00;
+    }
+
+    .adjust-buttons button:active {
+      transform: scale(0.95);
+    }
+
     .preset-minutes {
-      border: 2px solid #00BFA6;
-      border-radius: 10px;
-      padding: 15px;
+      border: 2px solid #0071e3;
+      border-radius: 20px;
+      padding: 20px;
       margin-top: 20px;
     }
 
     .preset-minutes-title {
-      font-size: 1.3em;
+      font-size: 1.5em;
       margin-bottom: 10px;
-      color: #00BFA6;
+      color: #0071e3;
     }
 
     .preset-buttons {
@@ -96,44 +131,24 @@
     }
 
     .preset-buttons button {
-      background-color: #FF8A65;
+      background-color: #ff3b30;
       border: none;
       color: white;
-      font-size: 1em;
-      padding: 10px;
+      font-size: 1.2em;
+      padding: 10px 15px;
       margin: 5px;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: 0.1s ease-in-out;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    .preset-buttons button:hover {
+      background-color: #d62d20;
     }
 
     .preset-buttons button:active {
       transform: scale(0.95);
     }
-
-    /* New buttons for adding/subtracting 30 seconds */
-    .adjust-buttons {
-      display: flex;
-      justify-content: space-around;
-      margin: 15px 0;
-      gap: 10px;
-    }
-
-    .adjust-buttons button {
-      background-color: #FFA726;
-      border: none;
-      color: white;
-      font-size: 1em;
-      padding: 10px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.2s ease-in-out;
-    }
-
-    .adjust-buttons button:active {
-      transform: scale(0.95);
-    }
-
   </style>
 
 </head>
@@ -142,24 +157,20 @@
   <div class="container">
     <div id="display">1:00</div>
 
-    <!-- Section pour entrer manuellement la durée -->
     <div class="manual-entry">
       <input type="text" id="manual-time" placeholder="MM:ss">
     </div>
 
-    <!-- Boutons pour démarrer et arrêter le minuteur -->
     <div class="buttons">
       <button onclick="start()">▶</button>
       <button onclick="cancel()">∎</button>
     </div>
 
-    <!-- Nouveaux boutons pour ajuster le timer par 30 secondes -->
     <div class="adjust-buttons">
       <button onclick="adjustTimer(30)">+30s</button>
       <button onclick="adjustTimer(-30)">-30s</button>
     </div>
 
-    <!-- Section pour régler le minuteur sur des durées spécifiques -->
     <div class="preset-minutes">
       <div class="preset-minutes-title">Minutes définies</div>
       <div class="preset-buttons">
@@ -175,7 +186,7 @@
 
   <script>
     let timer;
-    let timeLeft = 60; // Initial time is 1 minute (60 seconds)
+    let timeLeft = 60;
     let isRunning = false;
 
     const display = document.getElementById('display');
@@ -211,7 +222,7 @@
 
     function cancel() {
       clearInterval(timer);
-      timeLeft = 60; // Reset to 1 minute
+      timeLeft = 60;
       updateDisplay();
       isRunning = false;
     }
@@ -229,7 +240,7 @@
       updateDisplay();
     }
 
-    updateDisplay(); // Initialize the display with the default value of 1 minute
+    updateDisplay();
   </script>
 
 </body>
