@@ -3,46 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Table de Conversion</title>
-
+  <title>Table de Conversion Interactif</title>
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+      font-family: Arial, sans-serif;
       background-color: #f4f4f4;
+      color: #333;
+      padding: 20px;
     }
 
-    .table-container {
-      background-color: #333;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
-      color: white;
+    h1 {
       text-align: center;
+      margin-bottom: 20px;
     }
 
     table {
       width: 100%;
+      max-width: 700px;
+      margin: 20px auto;
       border-collapse: collapse;
-      margin: 10px 0;
-      color: white;
     }
 
     th, td {
       padding: 15px;
       text-align: center;
+      border: 1px solid #ccc;
     }
 
     th {
       background-color: #ff9500;
-    }
-
-    td {
-      background-color: #4a4a4a;
+      color: white;
     }
 
     input {
@@ -50,111 +40,113 @@
       padding: 8px;
       font-size: 1.1em;
       text-align: center;
-      background-color: #222;
-      color: white;
-      border: none;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
       border-radius: 5px;
       outline: none;
+    }
+
+    .unit {
+      background-color: #f4f4f4;
+      color: #333;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="table-container">
-    <h1>Table de Conversion</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Unité</th>
-          <th>Entrée</th>
-          <th>Équivalent</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Grams to Kilograms -->
-        <tr>
-          <td>Gramme (g) ➜ Kilogramme (kg)</td>
-          <td><input type="number" id="grammes" value="1000" oninput="convertirEnKg()"></td>
-          <td><input type="number" id="kilogrammes" value="1" oninput="convertirEnGr()"></td>
-        </tr>
+  <h1>Table de Conversion des Mesures en Cuisine</h1>
 
-        <!-- Milliliters to Liters -->
-        <tr>
-          <td>Millilitre (ml) ➜ Litre (L)</td>
-          <td><input type="number" id="millilitres" value="1000" oninput="convertirEnLitres()"></td>
-          <td><input type="number" id="litres" value="1" oninput="convertirEnMl()"></td>
-        </tr>
+  <!-- Conversion Liquides -->
+  <h2>Conversion des Liquides</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Unité</th>
+        <th>Millilitres (ml)</th>
+        <th>Litres (L)</th>
+        <th>Cuillères à soupe (c.s)</th>
+        <th>Cuillères à café (c.c)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="unit">Valeur à convertir</td>
+        <td><input type="number" id="ml_input" oninput="convertLiquids()"></td>
+        <td><input type="number" id="l_input" oninput="convertLiquids()"></td>
+        <td><input type="number" id="cs_input" oninput="convertLiquids()"></td>
+        <td><input type="number" id="cc_input" oninput="convertLiquids()"></td>
+      </tr>
+    </tbody>
+  </table>
 
-        <!-- Tablespoons to Milliliters -->
-        <tr>
-          <td>Cuillère à soupe (c.s) ➜ Millilitre (ml)</td>
-          <td><input type="number" id="cuilleres" value="1" oninput="convertirEnMlCS()"></td>
-          <td><input type="number" id="ml_cs" value="15" oninput="convertirEnCS()"></td>
-        </tr>
-
-        <!-- Cups to Grams (Dry Ingredients) -->
-        <tr>
-          <td>Tasse (sec) ➜ Gramme (g)</td>
-          <td><input type="number" id="tasses" value="1" oninput="convertirEnGrSec()"></td>
-          <td><input type="number" id="grammes_sec" value="120" oninput="convertirEnTasses()"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- Conversion Solides -->
+  <h2>Conversion des Solides</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Unité</th>
+        <th>Gramme (g)</th>
+        <th>Kilogramme (kg)</th>
+        <th>Tasse</th>
+        <th>Cuillère à soupe (c.s)</th>
+        <th>Cuillère à café (c.c)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="unit">Valeur à convertir</td>
+        <td><input type="number" id="g_input" oninput="convertSolids()"></td>
+        <td><input type="number" id="kg_input" oninput="convertSolids()"></td>
+        <td><input type="number" id="tasse_input" oninput="convertSolids()"></td>
+        <td><input type="number" id="cs_solides_input" oninput="convertSolids()"></td>
+        <td><input type="number" id="cc_solides_input" oninput="convertSolids()"></td>
+      </tr>
+    </tbody>
+  </table>
 
   <script>
-    // Convertir grammes en kilogrammes et inversement
-    function convertirEnKg() {
-      let grammes = document.getElementById("grammes").value;
-      let kilogrammes = grammes / 1000;
-      document.getElementById("kilogrammes").value = kilogrammes.toFixed(3);
+    // Conversion des liquides
+    function convertLiquids() {
+      let ml = parseFloat(document.getElementById('ml_input').value) || 0;
+      let litres = ml / 1000;
+      let cs = ml / 15;
+      let cc = ml / 5;
+
+      document.getElementById('l_input').value = litres.toFixed(3);
+      document.getElementById('cs_input').value = cs.toFixed(2);
+      document.getElementById('cc_input').value = cc.toFixed(2);
     }
 
-    function convertirEnGr() {
-      let kilogrammes = document.getElementById("kilogrammes").value;
-      let grammes = kilogrammes * 1000;
-      document.getElementById("grammes").value = grammes;
+    // Conversion inverse pour les liquides
+    document.getElementById('l_input').addEventListener('input', function() {
+      let litres = parseFloat(this.value) || 0;
+      let ml = litres * 1000;
+      document.getElementById('ml_input').value = ml;
+      convertLiquids();
+    });
+
+    // Conversion des solides
+    function convertSolids() {
+      let g = parseFloat(document.getElementById('g_input').value) || 0;
+      let kg = g / 1000;
+      let tasses = g / 120;  // 1 tasse = 120g (environ)
+      let cs = g / 15;
+      let cc = g / 5;
+
+      document.getElementById('kg_input').value = kg.toFixed(3);
+      document.getElementById('tasse_input').value = tasses.toFixed(2);
+      document.getElementById('cs_solides_input').value = cs.toFixed(2);
+      document.getElementById('cc_solides_input').value = cc.toFixed(2);
     }
 
-    // Convertir millilitres en litres et inversement
-    function convertirEnLitres() {
-      let millilitres = document.getElementById("millilitres").value;
-      let litres = millilitres / 1000;
-      document.getElementById("litres").value = litres.toFixed(3);
-    }
-
-    function convertirEnMl() {
-      let litres = document.getElementById("litres").value;
-      let millilitres = litres * 1000;
-      document.getElementById("millilitres").value = millilitres;
-    }
-
-    // Convertir cuillères à soupe en millilitres et inversement
-    function convertirEnMlCS() {
-      let cuilleres = document.getElementById("cuilleres").value;
-      let millilitres = cuilleres * 15;
-      document.getElementById("ml_cs").value = millilitres;
-    }
-
-    function convertirEnCS() {
-      let millilitres = document.getElementById("ml_cs").value;
-      let cuilleres = millilitres / 15;
-      document.getElementById("cuilleres").value = cuilleres.toFixed(2);
-    }
-
-    // Convertir tasses (sec) en grammes et inversement
-    function convertirEnGrSec() {
-      let tasses = document.getElementById("tasses").value;
-      let grammes = tasses * 120; // 1 tasse = 120g (environ)
-      document.getElementById("grammes_sec").value = grammes;
-    }
-
-    function convertirEnTasses() {
-      let grammes = document.getElementById("grammes_sec").value;
-      let tasses = grammes / 120;
-      document.getElementById("tasses").value = tasses.toFixed(2);
-    }
+    // Conversion inverse pour les solides
+    document.getElementById('kg_input').addEventListener('input', function() {
+      let kg = parseFloat(this.value) || 0;
+      let g = kg * 1000;
+      document.getElementById('g_input').value = g;
+      convertSolids();
+    });
   </script>
 
 </body>
