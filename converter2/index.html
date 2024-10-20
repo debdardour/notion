@@ -6,15 +6,26 @@
   <title>Table de Conversion Interactif</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Arial', sans-serif;
+      background-color: #ffffff;
       color: #333;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
     }
 
-    h1 {
+    h1, h2 {
       text-align: center;
+      color: #ff7b00;
+      font-size: 1.8em;
+      margin-top: 30px;
       margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #333;
+      font-size: 1.5em;
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
 
     table {
@@ -22,33 +33,58 @@
       max-width: 700px;
       margin: 20px auto;
       border-collapse: collapse;
+      font-size: 1em;
     }
 
     th, td {
-      padding: 15px;
+      padding: 10px;
       text-align: center;
-      border: 1px solid #ccc;
+      border: 1px solid #e0e0e0;
     }
 
     th {
-      background-color: #ff9500;
+      background-color: #ff7b00;
       color: white;
+      font-weight: normal;
     }
 
     input {
       width: 80%;
       padding: 8px;
-      font-size: 1.1em;
+      font-size: 1em;
       text-align: center;
       background-color: #f9f9f9;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
       outline: none;
+      transition: all 0.2s ease-in-out;
+    }
+
+    input:focus {
+      border-color: #ff7b00;
     }
 
     .unit {
-      background-color: #f4f4f4;
-      color: #333;
+      font-weight: bold;
+      background-color: #f2f2f2;
+    }
+
+    /* Boutons */
+    button {
+      display: block;
+      margin: 30px auto;
+      padding: 10px 20px;
+      background-color: #ff7b00;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #e66f00;
     }
   </style>
 </head>
@@ -105,6 +141,8 @@
     </tbody>
   </table>
 
+  <button onclick="resetFields()">Réinitialiser</button>
+
   <script>
     // Conversion des liquides
     function convertLiquids() {
@@ -147,6 +185,20 @@
       document.getElementById('g_input').value = g;
       convertSolids();
     });
+
+    // Réinitialisation des champs
+    function resetFields() {
+      document.getElementById('ml_input').value = '';
+      document.getElementById('l_input').value = '';
+      document.getElementById('cs_input').value = '';
+      document.getElementById('cc_input').value = '';
+
+      document.getElementById('g_input').value = '';
+      document.getElementById('kg_input').value = '';
+      document.getElementById('tasse_input').value = '';
+      document.getElementById('cs_solides_input').value = '';
+      document.getElementById('cc_solides_input').value = '';
+    }
   </script>
 
 </body>
