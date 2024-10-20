@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compact Timer Widget</title>
-
+  <title>Table de Conversion Interactif</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -13,46 +12,53 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background: none;
+      background-color: #2c2c2e;
+      color: white;
     }
 
     .container {
-      background-color: #2c2c2e;
+      background-color: #3a3a3c;
       padding: 20px;
-      max-width: 250px;
-      border-radius: 30px;
+      max-width: 300px;
+      border-radius: 20px;
       box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
       text-align: center;
-      color: #fff;
-    }
-
-    #display {
-      font-size: 2.5em;
-      font-weight: 600;
-      margin-bottom: 15px;
       color: #f5f5f7;
-      background-color: #3a3a3c;
-      padding: 15px;
-      border-radius: 20px;
-      letter-spacing: -1px;
     }
 
-    .manual-entry {
-      display: flex;
-      justify-content: center;
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #E9E9E9;
+    }
+
+    table {
+      width: 100%;
       margin: 10px 0;
-      align-items: center;
+      border-collapse: collapse;
     }
 
-    .manual-entry input {
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #444;
+      background-color: #4a4a4c;
+    }
+
+    th {
+      background-color: #6d3cc2; /* Violet */
+      color: white;
+    }
+
+    input {
+      width: 80%;
+      padding: 8px;
       font-size: 1em;
-      padding: 7px;
-      width: 100px;
       text-align: center;
       background-color: #3a3a3c;
-      color: #E9E9E9;
+      color: #f5f5f7;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       outline: none;
     }
 
@@ -63,33 +69,8 @@
       gap: 10px;
     }
 
-    .buttons button {
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      transition: transform 0.1s ease;
-    }
-
-    .buttons button img {
-      width: 40px;
-      height: 40px;
-    }
-
-    .buttons button:active {
-      transform: scale(0.95);
-    }
-
-    .adjust-buttons {
-      display: flex;
-      justify-content: space-around;
-      margin: 10px 0;
-      gap: 5px;
-    }
-
-    /* Boutons ajustés avec le violet et bleu */
-    .adjust-buttons button {
-      background-color: #6d3cc2; /* Violet */
+    button {
+      background-color: #4aa0d5; /* Bleu */
       border: none;
       color: white;
       font-size: 1em;
@@ -99,150 +80,118 @@
       transition: background-color 0.3s ease, transform 0.1s ease;
     }
 
-    .adjust-buttons button:hover {
-      background-color: #5e32a3; /* Violet foncé */
-    }
-
-    .adjust-buttons button:active {
-      transform: scale(0.95);
-    }
-
-    .preset-minutes {
-      border-radius: 15px;
-      padding: 10px;
-      margin-top: 10px;
-    }
-
-    .preset-minutes-title {
-      font-size: 1.2em;
-      margin-bottom: 8px;
-      color: #E9E9E9;
-    }
-
-    .preset-buttons {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-
-    /* Boutons ajustés avec le bleu */
-    .preset-buttons button {
-      background-color: #4aa0d5; /* Bleu */
-      border: none;
-      color: white;
-      font-size: 1em;
-      padding: 7px 10px;
-      margin: 3px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.1s ease;
-    }
-
-    .preset-buttons button:hover {
+    button:hover {
       background-color: #3e87b5; /* Bleu foncé */
     }
 
-    .preset-buttons button:active {
+    button:active {
       transform: scale(0.95);
+    }
+
+    .unit {
+      font-weight: bold;
+      background-color: #6d3cc2;
+    }
+
+    .reset-btn {
+      background-color: #ff7b00; /* Orange vif */
+    }
+
+    .reset-btn:hover {
+      background-color: #e66f00; /* Orange plus foncé */
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <div id="display">1:00</div>
+    <h2>Conversion des Liquides</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Unité</th>
+          <th>Millilitres (ml)</th>
+          <th>Litres (L)</th>
+          <th>Cuillères à soupe (c.s)</th>
+          <th>Cuillères à café (c.c)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="unit">Valeur</td>
+          <td><input type="number" id="ml_input" oninput="convertLiquids()"></td>
+          <td><input type="number" id="l_input" oninput="convertLiquids()"></td>
+          <td><input type="number" id="cs_input" oninput="convertLiquids()"></td>
+          <td><input type="number" id="cc_input" oninput="convertLiquids()"></td>
+        </tr>
+      </tbody>
+    </table>
 
-    <!-- Section pour entrer manuellement la durée -->
-    <div class="manual-entry">
-      <input type="text" id="manual-time" placeholder="MM:ss">
-    </div>
+    <h2>Conversion des Solides</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Unité</th>
+          <th>Gramme (g)</th>
+          <th>Kilogramme (kg)</th>
+          <th>Tasse</th>
+          <th>Cuillère à soupe (c.s)</th>
+          <th>Cuillère à café (c.c)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="unit">Valeur</td>
+          <td><input type="number" id="g_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="kg_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="tasse_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="cs_solides_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="cc_solides_input" oninput="convertSolids()"></td>
+        </tr>
+      </tbody>
+    </table>
 
-    <!-- Boutons pour démarrer et arrêter le minuteur -->
     <div class="buttons">
-      <button onclick="start()">
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/play-button-circled.png" alt="Play">
-      </button>
-      <button onclick="cancel()">
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/stop-circled.png" alt="Stop">
-      </button>
-    </div>
-
-    <!-- Nouveaux boutons pour ajuster le timer par 30 secondes -->
-    <div class="adjust-buttons">
-      <button onclick="adjustTimer(30)">+30s</button>
-      <button onclick="adjustTimer(-30)">-30s</button>
-    </div>
-
-    <!-- Section pour régler le minuteur sur des durées spécifiques -->
-    <div class="preset-minutes">
-      <div class="preset-minutes-title">Timers</div>
-      <div class="preset-buttons">
-        <button onclick="setTimer(2)">2 min</button>
-        <button onclick="setTimer(3)">3 min</button>
-        <button onclick="setTimer(6)">6 min</button>
-        <button onclick="setTimer(9)">9 min</button>
-        <button onclick="setTimer(10)">10 min</button>
-      </div>
+      <button class="reset-btn" onclick="resetFields()">Réinitialiser</button>
     </div>
   </div>
 
   <script>
-    let timer;
-    let timeLeft = 60; // Initial time is 1 minute (60 seconds)
-    let isRunning = false;
+    function convertLiquids() {
+      let ml = parseFloat(document.getElementById('ml_input').value) || 0;
+      let litres = ml / 1000;
+      let cs = ml / 15;
+      let cc = ml / 5;
 
-    const display = document.getElementById('display');
-    const manualTimeInput = document.getElementById('manual-time');
-
-    function updateDisplay() {
-      let minutes = Math.floor(timeLeft / 60);
-      let seconds = timeLeft % 60;
-      display.innerHTML = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+      document.getElementById('l_input').value = litres.toFixed(3);
+      document.getElementById('cs_input').value = cs.toFixed(2);
+      document.getElementById('cc_input').value = cc.toFixed(2);
     }
 
-    function start() {
-      if (isRunning) return;
+    function convertSolids() {
+      let g = parseFloat(document.getElementById('g_input').value) || 0;
+      let kg = g / 1000;
+      let tasses = g / 120;
+      let cs = g / 15;
+      let cc = g / 5;
 
-      if (manualTimeInput.value) {
-        const timeParts = manualTimeInput.value.split(':');
-        const manualMinutes = parseInt(timeParts[0]);
-        const manualSeconds = timeParts.length > 1 ? parseInt(timeParts[1]) : 0;
-        timeLeft = manualMinutes * 60 + manualSeconds;
-      }
-
-      timer = setInterval(function() {
-        if (timeLeft > 0) {
-          timeLeft--;
-          updateDisplay();
-        } else {
-          clearInterval(timer);
-          isRunning = false;
-        }
-      }, 1000);
-      isRunning = true;
+      document.getElementById('kg_input').value = kg.toFixed(3);
+      document.getElementById('tasse_input').value = tasses.toFixed(2);
+      document.getElementById('cs_solides_input').value = cs.toFixed(2);
+      document.getElementById('cc_solides_input').value = cc.toFixed(2);
     }
 
-    function cancel() {
-      clearInterval(timer);
-      timeLeft = 60; // Reset to 1 minute
-      updateDisplay();
-      isRunning = false;
+    function resetFields() {
+      document.getElementById('ml_input').value = '';
+      document.getElementById('l_input').value = '';
+      document.getElementById('cs_input').value = '';
+      document.getElementById('cc_input').value = '';
+      document.getElementById('g_input').value = '';
+      document.getElementById('kg_input').value = '';
+      document.getElementById('tasse_input').value = '';
+      document.getElementById('cs_solides_input').value = '';
+      document.getElementById('cc_solides_input').value = '';
     }
-
-    function setTimer(minutes) {
-      clearInterval(timer);
-      isRunning = false;
-      timeLeft = minutes * 60;
-      updateDisplay();
-    }
-
-    function adjustTimer(seconds) {
-      timeLeft += seconds;
-      if (timeLeft < 0) timeLeft = 0;
-      updateDisplay();
-    }
-
-    updateDisplay(); // Initialize the display with the default value of 1 minute
   </script>
 </body>
 </html>
