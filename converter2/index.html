@@ -21,10 +21,10 @@
       border-radius: 20px;
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
       width: 100%;
-      max-width: 350px;
+      max-width: 380px;
       text-align: center;
       color: white;
-      overflow-x: auto; /* Ajouté pour permettre un défilement horizontal si nécessaire */
+      overflow-x: auto;
     }
 
     h2 {
@@ -38,19 +38,30 @@
       margin: 20px 0;
       border-collapse: separate;
       border-spacing: 0 10px;
-      table-layout: auto; /* Laisse les colonnes ajuster leur taille automatiquement */
+      display: grid;
+    }
+
+    /* Grille pour liquides */
+    .liquides-table {
+      grid-template-columns: repeat(5, 1fr); /* 5 colonnes de largeur égale */
+    }
+
+    /* Grille pour solides */
+    .solides-table {
+      grid-template-columns: repeat(6, 1fr); /* 6 colonnes de largeur égale */
     }
 
     th, td {
       padding: 10px;
       text-align: center;
       box-sizing: border-box;
+      white-space: nowrap; /* Empêche le texte de se déborder */
     }
 
     th {
       background-color: #4AA0D5;
       color: white;
-      font-size: 1em;
+      font-size: 0.9em;
       border-radius: 10px 10px 0 0;
     }
 
@@ -60,7 +71,7 @@
     }
 
     td input {
-      width: 90%;
+      width: 100%;
       padding: 8px;
       font-size: 0.9em;
       text-align: center;
@@ -97,6 +108,11 @@
 
     /* Media query pour écrans plus petits */
     @media (max-width: 400px) {
+      .liquides-table, .solides-table {
+        grid-template-columns: repeat(2, 1fr); /* Colonnes réduites pour mobile */
+        grid-gap: 10px;
+      }
+
       th, td {
         padding: 8px;
         font-size: 0.8em;
@@ -118,7 +134,7 @@
 
   <div class="container">
     <h2>Conversion des Liquides</h2>
-    <table>
+    <table class="liquides-table">
       <thead>
         <tr>
           <th>Unité</th>
@@ -140,7 +156,7 @@
     </table>
 
     <h2>Conversion des Solides</h2>
-    <table>
+    <table class="solides-table">
       <thead>
         <tr>
           <th>Unité</th>
