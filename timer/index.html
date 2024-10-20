@@ -1,165 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings</title>
 
+    <!-- Lien vers la police Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <style>
-    body{
-      background-color: aliceblue;
-    }
-    .section {
-      background-color: aliceblue;
-      padding: 10px;
-      width: fit-content;
-
-    }
-#display{
-  margin-bottom: 5px;
-    font-size: 30px;
-    font-family: monospace;
-    color: darkturquoise;
-}
-    .section input {
-      font-size: 8px;
-        color: #2D2D32;
-        text-align: center;
-        border: 1px solid gray;
-        width: 30px;
-        padding: 5px 1px;
-        margin-right: 4px;
-       display: inline-block;
-    }
-
-    .buttons {
-        display: flex;
-        flex-direction: row;
-    }
-
-        .buttons button {
-            margin-right: 4px;
-
-            padding: 5px 10px;
-
-            background-color: #d8d8d8;
-            border: none;
-
-            color: white;
-            font-size: 15px;
-
-            cursor: pointer;
-            outline: none;
-
-            transition: 0.1s;
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f0f4f8; /* Gris clair moderne pour le fond */
+            color: #333; /* Texte gris foncé pour un contraste doux */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
         }
 
-            .buttons button:active {
-                box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
-            }
+        .widget {
+            background-color: #fff; /* Fond blanc pour contraste */
+            padding: 20px;
+            color: #005f73; /* Bleu moderne et subtil pour le texte */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 10px; /* Bordures arrondies pour un look plus moderne */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre subtile pour effet d'élévation */
+            margin-bottom: 20px;
+        }
 
-            .buttons button:last-child {
-                margin-right: 0;
-            }
+        .greet {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ee6c4d; /* Couleur vive pour le message de salutation */
+        }
 
-            .buttons button:nth-child(3){
-                background-color: #8bc34a;
-            }
+        .date, .clock {
+            font-family: 'Lato', monospace;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #005f73; /* Le même bleu que le texte principal */
+        }
 
-            .buttons button:nth-child(4){
-                background-color: rgb(201, 89, 69);
-            }
+        .clock {
+            font-size: 2em;
+            font-weight: 400;
+        }
 
-  </style>
+        .time {
+            display: inline-block;
+            min-width: 35px;
+            font-size: 3em; /* Augmentation de la taille des minutes et secondes */
+        }
 
+        .colon {
+            font-size: 1.5em;
+            display: inline-block;
+        }
+
+        /* Style pour les boutons */
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 1.2em;
+            background-color: #005f73;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #ee6c4d; /* Changement de couleur au survol */
+        }
+
+    </style>
 </head>
 <body>
-  <section class="section">
-    <div id="display">0:00</div>
-  
-    <div class="buttons">
-      <input type="text" id="input" name="input" placeholder="minutes">
-      <input type="text" id="input2" name="input2" placeholder="seconds">
 
-      <button onclick="start()">▶</button>
-      <button onclick="cancel()">∎</button>
+<div class="widget">
+    <div class="greet" id="greet"></div>
+    <div class="date" id="date"></div>
+    <div class="clock">
+        <div class="time" id="hour"></div>
+        <div class="colon">:</div>
+        <div class="time" id="min"></div>
+        <div class="colon">:</div>
+        <div class="time" id="sec"></div>
     </div>
-    
-  </section>
-</body>
+</div>
 
+<!-- Section des boutons -->
+<div class="buttons">
+    <button class="btn" onclick="addMinutes(1)">+1 min</button>
+    <button class="btn" onclick="addMinutes(2)">+2 min</button>
+    <button class="btn" onclick="addMinutes(3)">+3 min</button>
+    <button class="btn" onclick="addMinutes(6)">+6 min</button>
+    <button class="btn" onclick="addMinutes(9)">+9 min</button>
+    <button class="btn" onclick="addMinutes(10)">+10 min</button>
+</div>
 
 <script>
-  function beep() {
-    var snd = new Audio("bell.mp3");  
-    snd.play();
-}
-  var timer;
+    let today = new Date(); // Date actuelle
 
+    // Affichage des salutations en fonction de l'heure
+    function displayGreetings() {
+        let greet = 'Bonjour Roland'; // Texte modifié
+        document.getElementById('greet').innerHTML = greet;
+    }
 
-function start(){
-  var input = document.getElementById("input").value;
-  var input2 = document.getElementById("input2").value;
+    // Affichage de la date en français
+    function displayDate() {
+        const jours = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+        const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
+        const jourSemaine = jours[today.getDay()];
+        const moisAnnee = mois[today.getMonth()];
+        const date = today.getDate();
+        const annee = today.getFullYear();
+        document.getElementById('date').innerHTML = `${jourSemaine}, ${date} ${moisAnnee} ${annee}`;
+    }
 
-minute = parseInt(input)
-seconds1 = parseInt(input2)
-if( isNaN(seconds1)){
-  seconds1 = 0
-}
-if( isNaN(minute)){
-  minute = 0
-}
-seconds = minute*60+seconds1
+    // Affichage de l'horloge
+    function displayClock() {
+        let hour = padZeros(today.getHours());
+        let minutes = padZeros(today.getMinutes());
+        let seconds = padZeros(today.getSeconds());
 
-if(seconds==0){
- 
-  return;
-}
+        document.getElementById('hour').innerHTML = hour;
+        document.getElementById('min').innerHTML = minutes;
+        document.getElementById('sec').innerHTML = seconds;
+    }
 
-var textSec = "00"
-textSec = seconds1
+    // Fonction pour ajouter des minutes
+    function addMinutes(mins) {
+        today.setMinutes(today.getMinutes() + mins); // Ajouter des minutes à la date actuelle
+        displayClock(); // Mettre à jour l'affichage de l'horloge
+    }
 
-var display = document.getElementById("display");
-display.innerHTML = minute + ':' + textSec
-    var statSec = seconds1
-    timer = setInterval(function(){
-        seconds--;
+    // Fonction pour ajouter un zéro devant les chiffres < 10
+    function padZeros(num) {
+        return num < 10 ? '0' + num : num;
+    }
 
-        if(statSec != 0)
-            statSec--
-        else
-            statSec = 59
+    // Mise à jour du widget (salutations, date, heure)
+    function displayWidget() {
+        today = new Date(); // Mise à jour de l'heure actuelle à chaque appel
+        displayGreetings();
+        displayDate();
+        displayClock();
+        setTimeout(displayWidget, 1000); // Mise à jour chaque seconde
+    }
 
-        if(statSec < 10)
-            textSec = '0' + statSec
-        else 
-            textSec = statSec
-
-        display.innerHTML = Math.floor(seconds/60) + ':' + textSec
-
-        if(seconds == 0){
-          console.log('d')
-          beep();
-        clearInterval(timer)
-        }
-                
-    }, 1000)
-
-}
-
-
-function cancel(){
-    clearInterval(timer)
-    display.innerHTML ='00:00'
-    seconds = minute * 60
-}
-
-
-
+    displayWidget();
 </script>
 
-
-
+</body>
 </html>
