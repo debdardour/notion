@@ -32,16 +32,27 @@
       border-radius: 10px;
     }
 
-    .control-label {
+    .manual-entry {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      align-items: center;
+    }
+
+    .manual-entry input {
       font-size: 1.2em;
-      margin-bottom: 5px;
-      display: inline-block;
+      padding: 10px;
+      width: 100px;
+      text-align: center;
+      border: 2px solid #000B9A;
+      border-radius: 5px;
     }
 
     .buttons {
+      margin: 20px 0;
       display: flex;
-      justify-content: space-around;
-      margin-top: 15px;
+      justify-content: center;
+      gap: 10px;
     }
 
     .buttons button {
@@ -60,53 +71,39 @@
       transform: scale(0.95);
     }
 
-    .manual-entry {
-      margin: 15px 0;
-      text-align: center;
+    .preset-minutes {
+      border: 2px solid #d0d0d0;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 20px;
     }
 
-    .manual-entry input {
-      font-size: 1.5em;
-      padding: 10px;
-      width: 100px;
-      text-align: center;
-      border: 2px solid #000B9A;
-      border-radius: 5px;
+    .preset-minutes-title {
+      font-size: 1.3em;
       margin-bottom: 10px;
     }
 
-    .adjust-time {
+    .preset-buttons {
       display: flex;
       justify-content: space-around;
-      margin-top: 15px;
+      flex-wrap: wrap;
     }
 
-    .adjust-time div {
-      text-align: center;
-    }
-
-    .adjust-time span {
-      font-size: 1.2em;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .adjust-time button {
+    .preset-buttons button {
       background-color: #e3a86b;
       border: none;
       color: white;
-      font-size: 1.2em;
+      font-size: 1em;
       padding: 10px;
-      border-radius: 50%;
-      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+      margin: 5px;
+      border-radius: 10px;
       cursor: pointer;
       transition: 0.1s ease-in-out;
     }
 
-    .adjust-time button:active {
+    .preset-buttons button:active {
       transform: scale(0.95);
     }
-
   </style>
 
 </head>
@@ -115,55 +112,33 @@
   <div class="container">
     <div id="display">25:00</div>
 
+    <!-- Section pour entrer manuellement la durée -->
     <div class="manual-entry">
-      <label class="control-label" for="manual-minutes">Enter minutes:</label>
-      <input type="number" id="manual-minutes" placeholder="25">
+      <input type="number" id="manual-minutes" placeholder="Session (min)">
+      <button onclick="startStopTimer()">&#9658;/&#9208;</button>
     </div>
 
-    <div class="adjust-time">
-      <div>
-        <span>Break Length</span>
-        <button onclick="adjustBreak(-1)">&#x25BC;</button>
-        <span id="break-length">5</span>
-        <button onclick="adjustBreak(1)">&#x25B2;</button>
+    <!-- Section pour régler le minuteur sur des durées spécifiques -->
+    <div class="preset-minutes">
+      <div class="preset-minutes-title">Minutes définies</div>
+      <div class="preset-buttons">
+        <button onclick="setTimer(1)">1 min</button>
+        <button onclick="setTimer(2)">2 min</button>
+        <button onclick="setTimer(3)">3 min</button>
+        <button onclick="setTimer(6)">6 min</button>
+        <button onclick="setTimer(9)">9 min</button>
+        <button onclick="setTimer(10)">10 min</button>
       </div>
-
-      <div>
-        <span>Session Length</span>
-        <button onclick="adjustSession(-1)">&#x25BC;</button>
-        <span id="session-length">25</span>
-        <button onclick="adjustSession(1)">&#x25B2;</button>
-      </div>
-    </div>
-
-    <div class="buttons">
-      <button onclick="startTimer()">&#9658;</button>
-      <button onclick="resetTimer()">&#8634;</button>
     </div>
   </div>
 
   <script>
-    let sessionLength = 25;
-    let breakLength = 5;
     let timer;
-    let timeLeft = sessionLength * 60;
+    let timeLeft = 25 * 60;
     let isRunning = false;
 
     const display = document.getElementById('display');
-    const breakLengthDisplay = document.getElementById('break-length');
-    const sessionLengthDisplay = document.getElementById('session-length');
     const manualMinutesInput = document.getElementById('manual-minutes');
-
-    function adjustSession(amount) {
-      sessionLength = Math.max(1, sessionLength + amount);
-      sessionLengthDisplay.innerText = sessionLength;
-      updateDisplay();
-    }
-
-    function adjustBreak(amount) {
-      breakLength = Math.max(1, breakLength + amount);
-      breakLengthDisplay.innerText = breakLength;
-    }
 
     function updateDisplay() {
       let minutes = Math.floor(timeLeft / 60);
@@ -171,36 +146,35 @@
       display.innerHTML = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
     }
 
-    function startTimer() {
-      if (isRunning) return;
-      isRunning = true;
-      timer = setInterval(function() {
-        if (timeLeft > 0) {
-          timeLeft--;
-          updateDisplay();
-        } else {
-          clearInterval(timer);
-          isRunning = false;
+    function startStopTimer() {
+      if (isRunning) {
+        clearInterval(timer);
+        isRunning = false;
+      } else {
+        if (manualMinutesInput.value) {
+          timeLeft = parseInt(manualMinutesInput.value) * 60;
         }
-      }, 1000);
+        timer = setInterval(function() {
+          if (timeLeft > 0) {
+            timeLeft--;
+            updateDisplay();
+          } else {
+            clearInterval(timer);
+            isRunning = false;
+          }
+        }, 1000);
+        isRunning = true;
+      }
     }
 
-    function resetTimer() {
+    function setTimer(minutes) {
       clearInterval(timer);
       isRunning = false;
-      sessionLength = parseInt(manualMinutesInput.value) || 25;
-      timeLeft = sessionLength * 60;
-      sessionLengthDisplay.innerText = sessionLength;
+      timeLeft = minutes * 60;
       updateDisplay();
     }
 
-    manualMinutesInput.addEventListener('change', function() {
-      sessionLength = parseInt(manualMinutesInput.value) || 25;
-      timeLeft = sessionLength * 60;
-      updateDisplay();
-    });
-
-    resetTimer(); // Initialize display with default values
+    updateDisplay(); // Initialize the display with the default value
   </script>
 
 </body>
