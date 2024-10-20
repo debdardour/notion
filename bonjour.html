@@ -5,70 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greetings</title>
 
+    <!-- Lien vers la police Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
     <style>
-        body{
-            font-variant-caps: all-petite-caps;
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f0f4f8; /* Gris clair moderne pour le fond */
+            color: #333; /* Texte gris foncé pour un contraste doux */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
         .widget {
-            padding: 5px 5px;
-            color: #000B9A; /* Changement de la couleur du texte */
+            background-color: #fff; /* Fond blanc pour contraste */
+            padding: 20px;
+            color: #005f73; /* Bleu moderne et subtil pour le texte */
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            max-width: 95%;
-            margin: auto;
-            border: 3px solid #000B9A; /* Changement de la couleur de la bordure */
-            border-radius: 5px;
-            box-shadow: 2px 2px 1px 0px #000B9A; /* Changement de l'ombre de la boîte */
+            max-width: 600px;
+            width: 100%;
+            border-radius: 10px; /* Bordures arrondies pour un look plus moderne */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre subtile pour effet d'élévation */
         }
 
         .greet {
-            font-size: 3em;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ee6c4d; /* Couleur vive pour le message de salutation */
         }
 
-        .date {
-            font-family: monospace;
-            font-size: 2em;
+        .date, .clock {
+            font-family: 'Lato', monospace;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #005f73; /* Le même bleu que le texte principal */
         }
 
         .clock {
-            font-family: monospace;
             font-size: 2em;
+            font-weight: 400;
         }
 
         .time {
             display: inline-block;
-            min-width: 20px;
+            min-width: 35px;
         }
 
         .colon {
-            font-size: 1em;
+            font-size: 1.2em;
             display: inline-block;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="widget">
-        <div class="greet" id="greet"></div>
-        <div class="date" id="date"></div>
-        <div class="clock">
-            <div class="time" id="hour"></div>
-            <div class="colon">:</div>
-            <div class="time" id="min"></div>
-            <div class="colon">:</div>
-            <div class="time" id="sec"></div>
-        </div>
+<div class="widget">
+    <div class="greet" id="greet"></div>
+    <div class="date" id="date"></div>
+    <div class="clock">
+        <div class="time" id="hour"></div>
+        <div class="colon">:</div>
+        <div class="time" id="min"></div>
+        <div class="colon">:</div>
+        <div class="time" id="sec"></div>
     </div>
 </div>
 
 <script>
     // Affichage des salutations en fonction de l'heure
     function displayGreetings(today) {
-        let greet = 'Bonjour Roland'; // Remplacement du texte
+        let greet = 'Bonjour Roland'; // Texte modifié
         document.getElementById('greet').innerHTML = greet;
     }
 
