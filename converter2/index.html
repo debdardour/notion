@@ -20,9 +20,11 @@
       padding: 20px;
       border-radius: 20px;
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-      width: 350px;
+      width: 100%;
+      max-width: 350px;
       text-align: center;
       color: white;
+      overflow-x: auto; /* Ajouté pour permettre un défilement horizontal si nécessaire */
     }
 
     h2 {
@@ -36,6 +38,7 @@
       margin: 20px 0;
       border-collapse: separate;
       border-spacing: 0 10px;
+      table-layout: auto; /* Laisse les colonnes ajuster leur taille automatiquement */
     }
 
     th, td {
@@ -90,6 +93,24 @@
 
     button:active {
       transform: scale(0.98);
+    }
+
+    /* Media query pour écrans plus petits */
+    @media (max-width: 400px) {
+      th, td {
+        padding: 8px;
+        font-size: 0.8em;
+      }
+
+      td input {
+        font-size: 0.8em;
+        padding: 6px;
+      }
+
+      button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+      }
     }
   </style>
 </head>
