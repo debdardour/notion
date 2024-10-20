@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertisseur Cuisine</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #2c2c2e; 
+            color: #f5f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .widget {
+            background-color: #3a3a3c;
+            padding: 20px;
+            color: #E9E9E9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .header {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .converter {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 45%;
+        }
+
+        .input-field {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            background-color: #2c2c2e;
+            color: #f5f5f7;
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+
+        select {
+            font-size: 1.1em;
+            padding: 10px;
+            width: 100%;
+            background-color: #4a4a4a;
+            color: #f5f5f7;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .equals {
+            font-size: 2em;
+            font-weight: bold;
+            align-self: center;
+            color: #f5f5f7;
+        }
+
+        .result {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #f5f5f7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="widget">
+        <div class="header">Convertisseur Cuisine</div>
+        <div class="converter">
+            <div class="input-section">
+                <input type="number" class="input-field" id="inputValue" value="1.00000" oninput="convertUnit()">
+                <select id="inputUnit" onchange="convertUnit()">
+                    <option value="ml">Millilitres</option>
+                    <option value="cl">Centilitres</option>
+                    <option value="l">Litres</option>
+                    <option value="tsp">Teaspoon</option>
+                    <option value="tbsp">Tablespoon</option>
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                </select>
+            </div>
+            <div class="equals">=</div>
+            <div class="input-section">
+                <div class="result" id="outputValue">0.06763</div>
+                <select id="outputUnit" onchange="convertUnit()">
+                    <option value="ml">Millilitres</option>
+                    <option value="cl">Centilitres</option>
+                    <option value="l">Litres</option>
+                    <option value="tsp">Teaspoon</option>
+                    <option value="tbsp">Tablespoon</option>
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function convertUnit() {
+            const inputValue = parseFloat(document.getElementById('inputValue').value);
+            const inputUnit = document.getElementById('inputUnit').value;
+            const outputUnit = document.getElementById('outputUnit').value;
+
+            let outputValue;
+
+            // Conversion des volumes
+            const conversions = {
+                "ml": { "ml": 1, "cl": 0.1, "l": 0.001, "tsp": 0.202884, "tbsp": 0.067628 },
+                "cl": { "ml": 10, "cl": 1, "l": 0.01, "tsp": 2.02884, "tbsp": 0.67628 },
+                "l": { "ml": 1000, "cl": 100, "l": 1, "tsp": 202.884, "tbsp": 67.628 },
+                "tsp": { "ml": 4.92892, "cl": 0.492892, "l": 0.00492892, "tsp": 1, "tbsp": 0.333333 },
+                "tbsp": { "ml": 14.7868, "cl": 1.47868, "l": 0.0147868, "tsp": 3, "tbsp": 1 },
+                // Conversion des températures
+                "celsius": { "celsius": 1, "fahrenheit": (val) => (val * 9/5) + 32 },
+                "fahrenheit": { "celsius": (val) => (val - 32) * 5/9, "fahrenheit": 1 }
+            };
+
+            if (typeof conversions[inputUnit][outputUnit] === "function") {
+                outputValue = conversions[inputUnit][outputUnit](inputValue);
+            } else {
+                outputValue = inputValue * conversions[inputUnit][outputUnit];
+            }
+
+            document.getElementById('outputValue').textContent = outputValue.toFixed(5);
+        }
+
+        // Initialise la conversion au chargement de la page
+        convertUnit();
+    </script>
+
+</body>
+</html>
