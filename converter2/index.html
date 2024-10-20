@@ -6,8 +6,8 @@
   <title>Conversion Mesures en Cuisine</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #2C2C2E;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: transparent;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,28 +18,29 @@
     .container {
       background-color: #2C2C2E;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-      width: 700px;
+      border-radius: 20px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+      width: 350px;
       text-align: center;
+      color: white;
     }
 
     h2 {
       color: #E9E9E9;
-      font-size: 1.4em;
+      font-size: 1.2em;
       margin-bottom: 15px;
     }
 
     table {
       width: 100%;
       margin: 20px 0;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0 10px;
     }
 
     th, td {
       padding: 10px;
       text-align: center;
-      border: 1px solid #dddddd;
       box-sizing: border-box;
     }
 
@@ -47,10 +48,12 @@
       background-color: #4AA0D5;
       color: white;
       font-size: 1em;
+      border-radius: 10px 10px 0 0;
     }
 
     td {
-      background-color: #f0f0f0;
+      background-color: #3A3A3C;
+      border-radius: 10px;
     }
 
     td input {
@@ -58,11 +61,11 @@
       padding: 8px;
       font-size: 0.9em;
       text-align: center;
-      background-color: white;
-      border: 1px solid #dddddd;
+      background-color: #4A4A4C;
+      border: none;
       border-radius: 5px;
+      color: white;
       outline: none;
-      box-sizing: border-box;
     }
 
     .button-container {
@@ -74,10 +77,11 @@
       color: white;
       border: none;
       padding: 10px 20px;
-      border-radius: 5px;
+      border-radius: 15px;
       font-size: 1em;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     button:hover {
