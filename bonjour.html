@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greetings</title>
 
-    <!-- Lien vers la police Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
     <style>
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f0f4f8; /* Gris clair moderne pour le fond */
-            color: #333; /* Texte gris foncé pour un contraste doux */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #2c2c2e; 
+            color: #f5f5f7; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,53 +18,94 @@
         }
 
         .widget {
-            background-color: #fff; /* Fond blanc pour contraste */
+            background-color: #3a3a3c; /* Fond sombre similaire au premier widget */
             padding: 20px;
-            color: #005f73; /* Bleu moderne et subtil pour le texte */
+            color: #E9E9E9; /* Couleur claire pour le texte */
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            max-width: 600px;
+            max-width: 250px;
             width: 100%;
-            border-radius: 10px; /* Bordures arrondies pour un look plus moderne */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre subtile pour effet d'élévation */
+            border-radius: 30px; /* Bordures arrondies */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Ombre similaire */
+            text-align: center;
         }
 
         .greet {
             font-size: 2.5em;
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 15px;
-            color: #ee6c4d; /* Couleur vive pour le message de salutation */
+            color: #f5f5f7; /* Couleur claire pour correspondre à l'autre widget */
         }
 
         .date, .clock {
-            font-family: 'Lato', monospace;
+            font-family: monospace;
             font-size: 1.5em;
             margin-bottom: 10px;
-            color: #005f73; /* Le même bleu que le texte principal */
+            color: #E9E9E9;
         }
 
         .clock {
             font-size: 2em;
-            font-weight: 400;
+            font-weight: 600;
         }
 
         .time {
             display: inline-block;
             min-width: 35px;
+            color: #f5f5f7; /* Même couleur que dans le premier widget */
         }
 
         .colon {
             font-size: 1.2em;
             display: inline-block;
+            color: #f5f5f7;
+        }
+
+        /* Style des boutons adaptés au design du premier widget */
+        button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .button img {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Boutons avec les couleurs ajustées */
+        .button-30s {
+            background-color: #6d3cc2; /* Violet similaire */
+            padding: 7px;
+            border-radius: 10px;
+        }
+
+        .button-10s {
+            background-color: #4aa0d5; /* Bleu similaire */
+            padding: 7px;
+            border-radius: 10px;
+        }
+
+        .button:hover {
+            background-color: #5e32a3; /* Violet foncé pour hover */
+        }
+
+        .button:active {
+            transform: scale(0.95);
         }
     </style>
 </head>
 <body>
 
 <div class="widget">
-    <div class="greet" id="greet"></div>
+    <div class="greet" id="greet">Timers</div>
     <div class="date" id="date"></div>
     <div class="clock">
         <div class="time" id="hour"></div>
@@ -76,12 +114,22 @@
         <div class="colon">:</div>
         <div class="time" id="sec"></div>
     </div>
+
+    <!-- Boutons ajustés -->
+    <div class="buttons">
+        <button class="button button-30s">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/play-button-circled.png" alt="Start">
+        </button>
+        <button class="button button-10s">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/stop-circled.png" alt="Stop">
+        </button>
+    </div>
 </div>
 
 <script>
     // Affichage des salutations en fonction de l'heure
     function displayGreetings(today) {
-        let greet = 'Bonjour Roland'; // Texte modifié
+        let greet = 'Timers'; // Texte modifié
         document.getElementById('greet').innerHTML = greet;
     }
 
