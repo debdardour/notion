@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Measurement Converter</title>
+  
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: none;
+    }
+
+    .container {
+      background-color: #2c2c2e;
+      padding: 20px;
+      max-width: 800px;
+      border-radius: 30px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      color: #fff;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    input {
+      font-size: 1.5em;
+      padding: 10px;
+      width: 120px;
+      text-align: center;
+      background-color: #3a3a3c;
+      color: #E9E9E9;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .unit {
+      font-size: 1.5em;
+      color: #ff9500;
+    }
+
+    .arrow {
+      font-size: 2.5em;
+      color: #ff9500;
+      margin: 0 30px;
+    }
+
+    label {
+      display: inline-block;
+      color: #ff9500;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <!-- Grams to Kilograms -->
+    <div class="input-container">
+      <label class="unit">Grams (g):</label>
+      <input type="number" id="grams" value="1000" oninput="convertToKg()">
+    </div>
+    <div class="input-container">
+      <label class="unit">Kilograms (kg):</label>
+      <input type="number" id="kilograms" value="1" oninput="convertToGrams()">
+    </div>
+
+    <!-- Milliliters to Liters -->
+    <div class="input-container">
+      <label class="unit">Milliliters (ml):</label>
+      <input type="number" id="milliliters" value="1000" oninput="convertToLiters()">
+    </div>
+    <div class="input-container">
+      <label class="unit">Liters (L):</label>
+      <input type="number" id="liters" value="1" oninput="convertToMilliliters()">
+    </div>
+
+    <!-- Tablespoon to Milliliters -->
+    <div class="input-container">
+      <label class="unit">Tablespoons (c.s):</label>
+      <input type="number" id="tablespoons" value="1" oninput="convertToMlFromTbsp()">
+    </div>
+    <div class="input-container">
+      <label class="unit">Milliliters (ml):</label>
+      <input type="number" id="ml_from_tbsp" value="15" oninput="convertToTbspFromMl()">
+    </div>
+
+    <!-- Cups to Grams (Dry Ingredients) -->
+    <div class="input-container">
+      <label class="unit">Cups (dry):</label>
+      <input type="number" id="cups_dry" value="1" oninput="convertToGramsDry()">
+    </div>
+    <div class="input-container">
+      <label class="unit">Grams (g):</label>
+      <input type="number" id="grams_dry" value="120" oninput="convertToCupsDry()">
+    </div>
+  </div>
+
+  <script>
+    // Convert grams to kilograms and vice versa
+    function convertToKg() {
+      let grams = document.getElementById("grams").value;
+      let kilograms = grams / 1000;
+      document.getElementById("kilograms").value = kilograms.toFixed(3);
+    }
+
+    function convertToGrams() {
+      let kilograms = document.getElementById("kilograms").value;
+      let grams = kilograms * 1000;
+      document.getElementById("grams").value = grams;
+    }
+
+    // Convert milliliters to liters and vice versa
+    function convertToLiters() {
+      let milliliters = document.getElementById("milliliters").value;
+      let liters = milliliters / 1000;
+      document.getElementById("liters").value = liters.toFixed(3);
+    }
+
+    function convertToMilliliters() {
+      let liters = document.getElementById("liters").value;
+      let milliliters = liters * 1000;
+      document.getElementById("milliliters").value = milliliters;
+    }
+
+    // Convert tablespoons to milliliters and vice versa
+    function convertToMlFromTbsp() {
+      let tablespoons = document.getElementById("tablespoons").value;
+      let milliliters = tablespoons * 15;
+      document.getElementById("ml_from_tbsp").value = milliliters;
+    }
+
+    function convertToTbspFromMl() {
+      let milliliters = document.getElementById("ml_from_tbsp").value;
+      let tablespoons = milliliters / 15;
+      document.getElementById("tablespoons").value = tablespoons.toFixed(2);
+    }
+
+    // Convert cups (dry) to grams and vice versa
+    function convertToGramsDry() {
+      let cups = document.getElementById("cups_dry").value;
+      let grams = cups * 120; // 1 cup = 120g (approx)
+      document.getElementById("grams_dry").value = grams;
+    }
+
+    function convertToCupsDry() {
+      let grams = document.getElementById("grams_dry").value;
+      let cups = grams / 120;
+      document.getElementById("cups_dry").value = cups.toFixed(2);
+    }
+  </script>
+
+</body>
+</html>
