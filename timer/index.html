@@ -34,7 +34,7 @@
 
     .manual-entry {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       margin: 10px 0;
       align-items: center;
     }
@@ -42,7 +42,7 @@
     .manual-entry input {
       font-size: 1.2em;
       padding: 10px;
-      width: 100px;
+      width: 150px;
       text-align: center;
       border: 2px solid #000B9A;
       border-radius: 5px;
@@ -60,7 +60,7 @@
       border: none;
       color: white;
       font-size: 1.2em;
-      padding: 10px 20px;
+      padding: 10px;
       border-radius: 50%;
       box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
       cursor: pointer;
@@ -110,12 +110,17 @@
 <body>
 
   <div class="container">
-    <div id="display">25:00</div>
+    <div id="display">1:00</div>
 
     <!-- Section pour entrer manuellement la durée -->
     <div class="manual-entry">
-      <input type="number" id="manual-minutes" placeholder="Session (min)">
-      <button onclick="startStopTimer()">&#9658;/&#9208;</button>
+      <input type="text" id="manual-time" placeholder="MM:ss">
+    </div>
+
+    <!-- Boutons pour démarrer et arrêter le minuteur -->
+    <div class="buttons">
+      <button onclick="start()">▶</button>
+      <button onclick="cancel()">∎</button>
     </div>
 
     <!-- Section pour régler le minuteur sur des durées spécifiques -->
@@ -134,11 +139,11 @@
 
   <script>
     let timer;
-    let timeLeft = 25 * 60;
+    let timeLeft = 60; // Initial time is 1 minute (60 seconds)
     let isRunning = false;
 
     const display = document.getElementById('display');
-    const manualMinutesInput = document.getElementById('manual-minutes');
+    const manualTimeInput = document.getElementById('manual-time');
 
     function updateDisplay() {
       let minutes = Math.floor(timeLeft / 60);
@@ -146,25 +151,33 @@
       display.innerHTML = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
     }
 
-    function startStopTimer() {
-      if (isRunning) {
-        clearInterval(timer);
-        isRunning = false;
-      } else {
-        if (manualMinutesInput.value) {
-          timeLeft = parseInt(manualMinutesInput.value) * 60;
-        }
-        timer = setInterval(function() {
-          if (timeLeft > 0) {
-            timeLeft--;
-            updateDisplay();
-          } else {
-            clearInterval(timer);
-            isRunning = false;
-          }
-        }, 1000);
-        isRunning = true;
+    function start() {
+      if (isRunning) return;
+
+      if (manualTimeInput.value) {
+        const timeParts = manualTimeInput.value.split(':');
+        const manualMinutes = parseInt(timeParts[0]);
+        const manualSeconds = timeParts.length > 1 ? parseInt(timeParts[1]) : 0;
+        timeLeft = manualMinutes * 60 + manualSeconds;
       }
+
+      timer = setInterval(function() {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateDisplay();
+        } else {
+          clearInterval(timer);
+          isRunning = false;
+        }
+      }, 1000);
+      isRunning = true;
+    }
+
+    function cancel() {
+      clearInterval(timer);
+      timeLeft = 60; // Reset to 1 minute
+      updateDisplay();
+      isRunning = false;
     }
 
     function setTimer(minutes) {
@@ -174,7 +187,7 @@
       updateDisplay();
     }
 
-    updateDisplay(); // Initialize the display with the default value
+    updateDisplay(); // Initialize the display with the default value of 1 minute
   </script>
 
 </body>
