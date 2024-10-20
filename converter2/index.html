@@ -6,46 +6,48 @@
   <title>Table de Conversion Interactif</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #ffffff;
-      color: #333;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       margin: 0;
-      padding: 0;
+      background-color: #2c2c2e;
+      color: white;
     }
 
-    h1, h2 {
+    .container {
+      background-color: #3a3a3c;
+      padding: 20px;
+      max-width: 300px;
+      border-radius: 20px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
       text-align: center;
-      color: #ff7b00;
-      font-size: 1.8em;
-      margin-top: 30px;
-      margin-bottom: 20px;
+      color: #f5f5f7;
     }
 
     h2 {
-      color: #333;
       font-size: 1.5em;
-      margin-top: 20px;
       margin-bottom: 10px;
+      color: #E9E9E9;
     }
 
     table {
       width: 100%;
-      max-width: 700px;
-      margin: 20px auto;
+      margin: 10px 0;
       border-collapse: collapse;
-      font-size: 1em;
     }
 
     th, td {
       padding: 10px;
       text-align: center;
-      border: 1px solid #e0e0e0;
+      border: 1px solid #444;
+      background-color: #4a4a4c;
     }
 
     th {
-      background-color: #ff7b00;
+      background-color: #6d3cc2; /* Violet */
       color: white;
-      font-weight: normal;
     }
 
     input {
@@ -53,98 +55,108 @@
       padding: 8px;
       font-size: 1em;
       text-align: center;
-      background-color: #f9f9f9;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
+      background-color: #3a3a3c;
+      color: #f5f5f7;
+      border: none;
+      border-radius: 8px;
       outline: none;
-      transition: all 0.2s ease-in-out;
     }
 
-    input:focus {
-      border-color: #ff7b00;
+    .buttons {
+      margin: 15px 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    button {
+      background-color: #4aa0d5; /* Bleu */
+      border: none;
+      color: white;
+      font-size: 1em;
+      padding: 7px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+      background-color: #3e87b5; /* Bleu foncé */
+    }
+
+    button:active {
+      transform: scale(0.95);
     }
 
     .unit {
       font-weight: bold;
-      background-color: #f2f2f2;
+      background-color: #6d3cc2;
     }
 
-    /* Boutons */
-    button {
-      display: block;
-      margin: 30px auto;
-      padding: 10px 20px;
-      background-color: #ff7b00;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      font-size: 1.1em;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    .reset-btn {
+      background-color: #ff7b00; /* Orange vif */
     }
 
-    button:hover {
-      background-color: #e66f00;
+    .reset-btn:hover {
+      background-color: #e66f00; /* Orange plus foncé */
     }
   </style>
 </head>
 
 <body>
+  <div class="container">
+    <h2>Conversion des Liquides</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Unité</th>
+          <th>Millilitres (ml)</th>
+          <th>Litres (L)</th>
+          <th>Cuillères à soupe (c.s)</th>
+          <th>Cuillères à café (c.c)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="unit">Valeur</td>
+          <td><input type="number" id="ml_input" oninput="convertLiquids()"></td>
+          <td><input type="number" id="l_input" oninput="convertLiquids()"></td>
+          <td><input type="number" id="cs_input" oninput="convertLiquids()"></td>
+          <td><input type="number" id="cc_input" oninput="convertLiquids()"></td>
+        </tr>
+      </tbody>
+    </table>
 
-  <h1>Table de Conversion des Mesures en Cuisine</h1>
+    <h2>Conversion des Solides</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Unité</th>
+          <th>Gramme (g)</th>
+          <th>Kilogramme (kg)</th>
+          <th>Tasse</th>
+          <th>Cuillère à soupe (c.s)</th>
+          <th>Cuillère à café (c.c)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="unit">Valeur</td>
+          <td><input type="number" id="g_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="kg_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="tasse_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="cs_solides_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="cc_solides_input" oninput="convertSolids()"></td>
+        </tr>
+      </tbody>
+    </table>
 
-  <!-- Conversion Liquides -->
-  <h2>Conversion des Liquides</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Unité</th>
-        <th>Millilitres (ml)</th>
-        <th>Litres (L)</th>
-        <th>Cuillères à soupe (c.s)</th>
-        <th>Cuillères à café (c.c)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="unit">Valeur à convertir</td>
-        <td><input type="number" id="ml_input" oninput="convertLiquids()"></td>
-        <td><input type="number" id="l_input" oninput="convertLiquids()"></td>
-        <td><input type="number" id="cs_input" oninput="convertLiquids()"></td>
-        <td><input type="number" id="cc_input" oninput="convertLiquids()"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Conversion Solides -->
-  <h2>Conversion des Solides</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Unité</th>
-        <th>Gramme (g)</th>
-        <th>Kilogramme (kg)</th>
-        <th>Tasse</th>
-        <th>Cuillère à soupe (c.s)</th>
-        <th>Cuillère à café (c.c)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="unit">Valeur à convertir</td>
-        <td><input type="number" id="g_input" oninput="convertSolids()"></td>
-        <td><input type="number" id="kg_input" oninput="convertSolids()"></td>
-        <td><input type="number" id="tasse_input" oninput="convertSolids()"></td>
-        <td><input type="number" id="cs_solides_input" oninput="convertSolids()"></td>
-        <td><input type="number" id="cc_solides_input" oninput="convertSolids()"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <button onclick="resetFields()">Réinitialiser</button>
+    <div class="buttons">
+      <button class="reset-btn" onclick="resetFields()">Réinitialiser</button>
+    </div>
+  </div>
 
   <script>
-    // Conversion des liquides
     function convertLiquids() {
       let ml = parseFloat(document.getElementById('ml_input').value) || 0;
       let litres = ml / 1000;
@@ -156,19 +168,10 @@
       document.getElementById('cc_input').value = cc.toFixed(2);
     }
 
-    // Conversion inverse pour les liquides
-    document.getElementById('l_input').addEventListener('input', function() {
-      let litres = parseFloat(this.value) || 0;
-      let ml = litres * 1000;
-      document.getElementById('ml_input').value = ml;
-      convertLiquids();
-    });
-
-    // Conversion des solides
     function convertSolids() {
       let g = parseFloat(document.getElementById('g_input').value) || 0;
       let kg = g / 1000;
-      let tasses = g / 120;  // 1 tasse = 120g (environ)
+      let tasses = g / 120;
       let cs = g / 15;
       let cc = g / 5;
 
@@ -178,21 +181,11 @@
       document.getElementById('cc_solides_input').value = cc.toFixed(2);
     }
 
-    // Conversion inverse pour les solides
-    document.getElementById('kg_input').addEventListener('input', function() {
-      let kg = parseFloat(this.value) || 0;
-      let g = kg * 1000;
-      document.getElementById('g_input').value = g;
-      convertSolids();
-    });
-
-    // Réinitialisation des champs
     function resetFields() {
       document.getElementById('ml_input').value = '';
       document.getElementById('l_input').value = '';
       document.getElementById('cs_input').value = '';
       document.getElementById('cc_input').value = '';
-
       document.getElementById('g_input').value = '';
       document.getElementById('kg_input').value = '';
       document.getElementById('tasse_input').value = '';
@@ -200,6 +193,5 @@
       document.getElementById('cc_solides_input').value = '';
     }
   </script>
-
 </body>
 </html>
