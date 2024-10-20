@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greetings</title>
 
-    <!-- Lien vers la police Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
     <style>
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f0f4f8; /* Gris clair moderne pour le fond */
-            color: #333; /* Texte gris foncé pour un contraste doux */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: none;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,74 +18,83 @@
         }
 
         .widget {
-            background-color: #fff; /* Fond blanc pour contraste */
+            background-color: #2c2c2e;
             padding: 20px;
-            color: #005f73; /* Bleu moderne et subtil pour le texte */
+            color: #E9E9E9;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            max-width: 600px;
+            max-width: 300px;
             width: 100%;
-            border-radius: 10px; /* Bordures arrondies pour un look plus moderne */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre subtile pour effet d'élévation */
+            border-radius: 30px; 
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25); 
         }
 
         .greet {
             font-size: 2.5em;
             font-weight: 700;
             margin-bottom: 15px;
-            color: #E9E9E9; /* Blanc-gris pour le texte "Timers" */
+            color: #f5f5f7;
         }
 
         .date, .clock {
             font-family: 'Lato', monospace;
             font-size: 1.5em;
             margin-bottom: 10px;
-            color: #005f73; /* Le même bleu que le texte principal */
+            color: #E9E9E9;
         }
 
         .clock {
             font-size: 2em;
             font-weight: 400;
+            background-color: #3a3a3c;
+            padding: 15px;
+            border-radius: 20px;
         }
 
         .time {
             display: inline-block;
             min-width: 35px;
-            color: #E9E9E9; /* Blanc-gris pour l'horloge */
+            color: #f5f5f7;
         }
 
         .colon {
             font-size: 1.2em;
             display: inline-block;
-            color: #E9E9E9; /* Blanc-gris pour les deux-points */
+            color: #f5f5f7;
         }
 
-        /* Style des boutons ajustés */
+        /* Style des boutons */
+        .buttons {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
         button {
-            background-color: transparent;
+            background: none;
             border: none;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.1s ease;
+        }
+
+        button img {
+            width: 40px;
+            height: 40px;
         }
 
         button:active {
             transform: scale(0.95);
         }
 
-        .button img {
-            width: 50px;
-            height: 50px;
+        .button-30s img {
+            filter: invert(100%);
         }
 
-        /* Couleurs des boutons selon les nouvelles teintes */
-        .button-30s {
-            background-color: #4a4a8d; /* Violet similaire */
-        }
-
-        .button-10s {
-            background-color: #4aa0d5; /* Bleu similaire */
+        .button-10s img {
+            filter: invert(100%);
         }
     </style>
 </head>
@@ -108,10 +114,10 @@
     <!-- Boutons ajustés -->
     <div class="buttons">
         <button class="button button-30s">
-            <img src="https://img.icons8.com/ios-filled/50/000000/play-button-circled.png" alt="Start">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/play-button-circled.png" alt="Start">
         </button>
         <button class="button button-10s">
-            <img src="https://img.icons8.com/ios-filled/50/000000/stop-circled.png" alt="Stop">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/stop-circled.png" alt="Stop">
         </button>
     </div>
 </div>
