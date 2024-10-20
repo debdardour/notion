@@ -3,178 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convertisseur Cuisine</title>
+    <title>Temperature Converter</title>
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: none; /* Suppression du fond */
+            margin: 0;
+            background: none;
         }
 
-        .widget {
-            background-color: #3a3a3c;
+        .container {
+            display: flex;
+            align-items: center;
             padding: 20px;
-            color: #E9E9E9;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-            max-width: 500px;
-            width: 100%;
+            margin: 0 10px;
         }
 
-        .header {
-            font-size: 1.8em;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .converter {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .input-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 45%;
-        }
-
-        .input-field {
-            font-size: 2.5em;
-            font-weight: bold;
-            text-align: center;
-            background-color: #2c2c2e;
-            color: #f5f5f7;
-            border: none;
-            outline: none;
-            width: 100%;
+        input {
+            width: 80px;
             padding: 10px;
-            margin-bottom: 5px;
-            -moz-appearance: textfield; /* Supprimer les flèches sur Firefox */
-        }
-
-        /* Supprimer les flèches dans les champs number */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
-        }
-
-        select {
-            font-size: 1.1em;
-            padding: 10px;
-            width: 100%;
-            background-color: #4a4a4a;
-            color: #f5f5f7;
+            font-size: 1.5em;
             border: none;
             border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 10px;
         }
 
-        .equals {
+        input:focus {
+            outline: none;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-size: 1.5em;
+            color: #f97316;
+        }
+
+        .arrow {
             font-size: 2em;
-            font-weight: bold;
-            align-self: center;
-            color: #f5f5f7;
+            color: #6b7280;
         }
 
-        .result {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #f5f5f7;
-        }
     </style>
 </head>
 <body>
 
-    <div class="widget">
-        <div class="header">Convertisseur Cuisine</div>
-        <div class="converter">
-            <div class="input-section">
-                <input type="number" class="input-field" id="inputValue" value="1.00000" oninput="convertUnit()">
-                <select id="inputUnit" onchange="convertUnit()">
-                    <option value="ml">Millilitres</option>
-                    <option value="cl">Centilitres</option>
-                    <option value="l">Litres</option>
-                    <option value="g">Grammes</option>
-                    <option value="kg">Kilogrammes</option>
-                    <option value="tsp">Teaspoon</option>
-                    <option value="tbsp">Tablespoon</option>
-                    <option value="cup">Tasse</option>
-                    <option value="oz">Onces</option>
-                    <option value="pint">Pinte</option>
-                    <option value="gallon">Gallon</option>
-                    <option value="celsius">Celsius</option>
-                    <option value="fahrenheit">Fahrenheit</option>
-                </select>
-            </div>
-            <div class="equals">=</div>
-            <div class="input-section">
-                <div class="result" id="outputValue">0.06763</div>
-                <select id="outputUnit" onchange="convertUnit()">
-                    <option value="ml">Millilitres</option>
-                    <option value="cl">Centilitres</option>
-                    <option value="l">Litres</option>
-                    <option value="g">Grammes</option>
-                    <option value="kg">Kilogrammes</option>
-                    <option value="tsp">Teaspoon</option>
-                    <option value="tbsp">Tablespoon</option>
-                    <option value="cup">Tasse</option>
-                    <option value="oz">Onces</option>
-                    <option value="pint">Pinte</option>
-                    <option value="gallon">Gallon</option>
-                    <option value="celsius">Celsius</option>
-                    <option value="fahrenheit">Fahrenheit</option>
-                </select>
-            </div>
+    <div class="container">
+        <!-- Fahrenheit to Celsius -->
+        <div class="input-group">
+            <label for="fahrenheit">°F :</label>
+            <input type="number" id="fahrenheit" placeholder="0" oninput="convertToCelsius()">
+        </div>
+
+        <div class="arrow">⇔</div>
+
+        <!-- Celsius to Fahrenheit -->
+        <div class="input-group">
+            <label for="celsius">°C :</label>
+            <input type="number" id="celsius" placeholder="0" oninput="convertToFahrenheit()">
         </div>
     </div>
 
     <script>
-        function convertUnit() {
-            const inputValue = parseFloat(document.getElementById('inputValue').value);
-            const inputUnit = document.getElementById('inputUnit').value;
-            const outputUnit = document.getElementById('outputUnit').value;
-
-            let outputValue;
-
-            // Conversion des volumes, poids et températures
-            const conversions = {
-                "ml": { "ml": 1, "cl": 0.1, "l": 0.001, "tsp": 0.202884, "tbsp": 0.067628, "cup": 0.00422675, "oz": 0.033814, "pint": 0.00211338, "gallon": 0.000264172 },
-                "cl": { "ml": 10, "cl": 1, "l": 0.01, "tsp": 2.02884, "tbsp": 0.67628, "cup": 0.0422675, "oz": 0.33814, "pint": 0.0211338, "gallon": 0.00264172 },
-                "l": { "ml": 1000, "cl": 100, "l": 1, "tsp": 202.884, "tbsp": 67.628, "cup": 4.22675, "oz": 33.814, "pint": 2.11338, "gallon": 0.264172 },
-                "g": { "g": 1, "kg": 0.001, "oz": 0.035274 },
-                "kg": { "g": 1000, "kg": 1, "oz": 35.274 },
-                "tsp": { "ml": 4.92892, "cl": 0.492892, "l": 0.00492892, "tsp": 1, "tbsp": 0.333333, "cup": 0.0208333, "oz": 0.166667, "pint": 0.0104167, "gallon": 0.00130208 },
-                "tbsp": { "ml": 14.7868, "cl": 1.47868, "l": 0.0147868, "tsp": 3, "tbsp": 1, "cup": 0.0625, "oz": 0.5, "pint": 0.03125, "gallon": 0.00390625 },
-                "cup": { "ml": 236.588, "cl": 23.6588, "l": 0.236588, "tsp": 48, "tbsp": 16, "cup": 1, "oz": 8, "pint": 0.5, "gallon": 0.0625 },
-                "oz": { "ml": 29.5735, "cl": 2.95735, "l": 0.0295735, "tsp": 6, "tbsp": 2, "cup": 0.125, "oz": 1, "pint": 0.0625, "gallon": 0.0078125 },
-                "pint": { "ml": 473.176, "cl": 47.3176, "l": 0.473176, "tsp": 96, "tbsp": 32, "cup": 2, "oz": 16, "pint": 1, "gallon": 0.125 },
-                "gallon": { "ml": 3785.41, "cl": 378.541, "l": 3.78541, "tsp": 768, "tbsp": 256, "cup": 16, "oz": 128, "pint": 8, "gallon": 1 },
-                // Conversion des températures
-                "celsius": { "celsius": 1, "fahrenheit": (val) => (val * 9/5) + 32 },
-                "fahrenheit": { "celsius": (val) => (val - 32) * 5/9, "fahrenheit": 1 }
-            };
-
-            if (typeof conversions[inputUnit][outputUnit] === "function") {
-                outputValue = conversions[inputUnit][outputUnit](inputValue);
-            } else {
-                outputValue = inputValue * conversions[inputUnit][outputUnit];
+        function convertToCelsius() {
+            let fahrenheit = document.getElementById('fahrenheit').value;
+            if (fahrenheit !== "") {
+                let celsius = (fahrenheit - 32) * 5 / 9;
+                document.getElementById('celsius').value = celsius.toFixed(2);
             }
-
-            document.getElementById('outputValue').textContent = outputValue.toFixed(5);
         }
 
-        // Initialise la conversion au chargement de la page
-        convertUnit();
+        function convertToFahrenheit() {
+            let celsius = document.getElementById('celsius').value;
+            if (celsius !== "") {
+                let fahrenheit = (celsius * 9 / 5) + 32;
+                document.getElementById('fahrenheit').value = fahrenheit.toFixed(2);
+            }
+        }
     </script>
 
 </body>
