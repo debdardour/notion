@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Timer</title>
-
+  <title>Modern Timer Widget</title>
+  
   <style>
     body {
-      background-color: #f5f5f7;
+      background-color: #1c1c1e;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       display: flex;
       justify-content: center;
@@ -17,46 +17,43 @@
     }
 
     .container {
-      background-color: #ffffff;
+      background-color: #2c2c2e;
       padding: 40px;
       max-width: 400px;
-      border-radius: 30px;
-      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.1);
+      border-radius: 40px;
+      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.25);
       text-align: center;
-      color: #1d1d1f;
+      color: #fff;
     }
 
     #display {
-      font-size: 5em;
+      font-size: 4em;
       font-weight: 600;
       margin-bottom: 20px;
-      color: #000000;
-      background-color: #f0f0f5;
+      color: #f5f5f7;
+      background-color: #3a3a3c;
       padding: 20px;
-      border-radius: 20px;
+      border-radius: 25px;
       letter-spacing: -2px;
     }
 
     .manual-entry {
       display: flex;
       justify-content: center;
-      margin: 20px 0;
+      margin: 10px 0;
       align-items: center;
     }
 
     .manual-entry input {
-      font-size: 1.5em;
-      padding: 15px;
-      width: 180px;
+      font-size: 1.2em;
+      padding: 10px;
+      width: 150px;
       text-align: center;
-      border: 2px solid #0071e3;
-      border-radius: 12px;
+      background-color: #3a3a3c;
+      color: #fff;
+      border: none;
+      border-radius: 15px;
       outline: none;
-      transition: border-color 0.3s ease;
-    }
-
-    .manual-entry input:focus {
-      border-color: #005bb5;
     }
 
     .buttons {
@@ -67,18 +64,19 @@
     }
 
     .buttons button {
-      background-color: #0071e3;
+      background-color: #32d74b;
       border: none;
       color: white;
       font-size: 1.5em;
       padding: 15px;
       border-radius: 50%;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.1s ease;
     }
 
     .buttons button:hover {
-      background-color: #005bb5;
+      background-color: #28b040;
     }
 
     .buttons button:active {
@@ -88,12 +86,12 @@
     .adjust-buttons {
       display: flex;
       justify-content: space-around;
-      margin: 20px 0;
-      gap: 15px;
+      margin: 15px 0;
+      gap: 10px;
     }
 
     .adjust-buttons button {
-      background-color: #ff9500;
+      background-color: #ff453a;
       border: none;
       color: white;
       font-size: 1.2em;
@@ -104,7 +102,7 @@
     }
 
     .adjust-buttons button:hover {
-      background-color: #cc7a00;
+      background-color: #d93d31;
     }
 
     .adjust-buttons button:active {
@@ -112,7 +110,7 @@
     }
 
     .preset-minutes {
-      border: 2px solid #0071e3;
+      border: 2px solid #007aff;
       border-radius: 20px;
       padding: 20px;
       margin-top: 20px;
@@ -121,7 +119,7 @@
     .preset-minutes-title {
       font-size: 1.5em;
       margin-bottom: 10px;
-      color: #0071e3;
+      color: #0a84ff;
     }
 
     .preset-buttons {
@@ -131,7 +129,7 @@
     }
 
     .preset-buttons button {
-      background-color: #ff3b30;
+      background-color: #ff9500;
       border: none;
       color: white;
       font-size: 1.2em;
@@ -143,34 +141,37 @@
     }
 
     .preset-buttons button:hover {
-      background-color: #d62d20;
+      background-color: #cc7a00;
     }
 
     .preset-buttons button:active {
       transform: scale(0.95);
     }
   </style>
-
 </head>
-<body>
 
+<body>
   <div class="container">
     <div id="display">1:00</div>
 
+    <!-- Section pour entrer manuellement la durée -->
     <div class="manual-entry">
       <input type="text" id="manual-time" placeholder="MM:ss">
     </div>
 
+    <!-- Boutons pour démarrer et arrêter le minuteur -->
     <div class="buttons">
       <button onclick="start()">▶</button>
       <button onclick="cancel()">∎</button>
     </div>
 
+    <!-- Nouveaux boutons pour ajuster le timer par 30 secondes -->
     <div class="adjust-buttons">
       <button onclick="adjustTimer(30)">+30s</button>
       <button onclick="adjustTimer(-30)">-30s</button>
     </div>
 
+    <!-- Section pour régler le minuteur sur des durées spécifiques -->
     <div class="preset-minutes">
       <div class="preset-minutes-title">Minutes définies</div>
       <div class="preset-buttons">
@@ -186,7 +187,7 @@
 
   <script>
     let timer;
-    let timeLeft = 60;
+    let timeLeft = 60; // Initial time is 1 minute (60 seconds)
     let isRunning = false;
 
     const display = document.getElementById('display');
@@ -222,7 +223,7 @@
 
     function cancel() {
       clearInterval(timer);
-      timeLeft = 60;
+      timeLeft = 60; // Reset to 1 minute
       updateDisplay();
       isRunning = false;
     }
@@ -240,8 +241,7 @@
       updateDisplay();
     }
 
-    updateDisplay();
+    updateDisplay(); // Initialize the display with the default value of 1 minute
   </script>
-
 </body>
 </html>
