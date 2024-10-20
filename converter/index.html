@@ -1,103 +1,97 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversion Température</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: none;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
 
-        .container {
-            background-color: #2c2c2e;
-            padding: 20px;
-            max-width: 300px;
-            border-radius: 30px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
-            text-align: center;
-            color: #fff;
-        }
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: none;
+    }
 
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    .container {
+      background-color: #2c2c2e;
+      padding: 20px;
+      max-width: 600px;
+      border-radius: 30px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        label {
-            font-size: 1.2em;
-            color: #f97316;
-        }
+    .input-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        input {
-            width: 100px;
-            padding: 10px;
-            font-size: 1.5em;
-            border: none;
-            border-radius: 10px;
-            text-align: center;
-            background-color: #3a3a3c;
-            color: #f5f5f7;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
+    input {
+      font-size: 1.5em;
+      padding: 10px;
+      width: 120px;
+      text-align: center;
+      background-color: #3a3a3c;
+      color: #E9E9E9;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+    }
 
-        input:focus {
-            outline: none;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        }
+    .unit {
+      font-size: 1.5em;
+      color: #ff9500;
+    }
 
-        .arrow {
-            font-size: 2em;
-            color: #6b7280;
-        }
-    </style>
+    .arrow {
+      font-size: 2em;
+      color: #ff9500;
+    }
+
+  </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="input-group">
-        <label for="fahrenheit">°F :</label>
-        <input type="number" id="fahrenheit" value="400" oninput="convertToCelsius()">
+  <div class="container">
+    <!-- Fahrenheit input -->
+    <div class="input-container">
+      <span class="unit">°F:</span>
+      <input type="number" id="fahrenheit" value="400" oninput="convertToCelsius()">
     </div>
 
-    <div class="arrow">⇔</div>
+    <!-- Arrow between units -->
+    <span class="arrow">⇄</span>
 
-    <div class="input-group">
-        <label for="celsius">°C :</label>
-        <input type="number" id="celsius" placeholder="0" oninput="convertToFahrenheit()">
+    <!-- Celsius input -->
+    <div class="input-container">
+      <span class="unit">°C:</span>
+      <input type="number" id="celsius" value="204" oninput="convertToFahrenheit()">
     </div>
-</div>
+  </div>
 
-<script>
+  <script>
     function convertToCelsius() {
-        let fahrenheit = document.getElementById('fahrenheit').value;
-        if (fahrenheit !== "") {
-            let celsius = (fahrenheit - 32) * 5 / 9;
-            document.getElementById('celsius').value = celsius.toFixed(2);
-        }
+      let fahrenheit = document.getElementById("fahrenheit").value;
+      let celsius = (fahrenheit - 32) * 5 / 9;
+      document.getElementById("celsius").value = celsius.toFixed(2);
     }
 
     function convertToFahrenheit() {
-        let celsius = document.getElementById('celsius').value;
-        if (celsius !== "") {
-            let fahrenheit = (celsius * 9 / 5) + 32;
-            document.getElementById('fahrenheit').value = fahrenheit.toFixed(2);
-        }
+      let celsius = document.getElementById("celsius").value;
+      let fahrenheit = (celsius * 9 / 5) + 32;
+      document.getElementById("fahrenheit").value = fahrenheit.toFixed(2);
     }
-
-    // Convert default value on page load
-    window.onload = function () {
-        convertToCelsius();
-    };
-</script>
+  </script>
 
 </body>
 </html>
