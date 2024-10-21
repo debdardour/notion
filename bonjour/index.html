@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,105 +7,68 @@
 
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #2c2c2e; 
-            color: #f5f5f7; 
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            background-color: #f5f5f7;
         }
 
         .widget {
-            background-color: #3a3a3c; /* Fond sombre similaire au premier widget */
             padding: 20px;
-            color: #E9E9E9; /* Couleur claire pour le texte */
+            background-color: #ffffff;
+            color: #000000;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            max-width: 250px;
-            width: 100%;
-            border-radius: 30px; /* Bordures arrondies */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Ombre similaire */
-            text-align: center;
+            max-width: 90%;
+            margin: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Plus doux */
         }
 
         .greet {
             font-size: 2.5em;
             font-weight: 600;
-            margin-bottom: 15px;
-            color: #f5f5f7; /* Couleur claire pour correspondre à l'autre widget */
+            margin-bottom: 10px;
+            color: #333;
         }
 
-        .date, .clock {
-            font-family: monospace;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #E9E9E9;
+        .date {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            color: #666;
         }
 
         .clock {
+            display: flex;
+            align-items: center;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             font-size: 2em;
-            font-weight: 600;
+            color: #333;
         }
 
         .time {
-            display: inline-block;
-            min-width: 35px;
-            color: #f5f5f7; /* Même couleur que dans le premier widget */
+            margin: 0 5px;
         }
 
         .colon {
-            font-size: 1.2em;
-            display: inline-block;
-            color: #f5f5f7;
-        }
-
-        /* Style des boutons adaptés au design du premier widget */
-        button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.1s ease;
-        }
-
-        button:active {
-            transform: scale(0.95);
-        }
-
-        .button img {
-            width: 40px;
-            height: 40px;
-        }
-
-        /* Boutons avec les couleurs ajustées */
-        .button-30s {
-            background-color: #6d3cc2; /* Violet similaire */
-            padding: 7px;
-            border-radius: 10px;
-        }
-
-        .button-10s {
-            background-color: #4aa0d5; /* Bleu similaire */
-            padding: 7px;
-            border-radius: 10px;
-        }
-
-        .button:hover {
-            background-color: #5e32a3; /* Violet foncé pour hover */
-        }
-
-        .button:active {
-            transform: scale(0.95);
+            margin: 0 2px;
+            font-size: 1em;
+            color: #999;
         }
     </style>
 </head>
 <body>
 
 <div class="widget">
-    <div class="greet" id="greet">Timers</div>
+    <div class="greet" id="greet"></div>
     <div class="date" id="date"></div>
     <div class="clock">
         <div class="time" id="hour"></div>
@@ -114,63 +77,58 @@
         <div class="colon">:</div>
         <div class="time" id="sec"></div>
     </div>
-
-    <!-- Boutons ajustés -->
-    <div class="buttons">
-        <button class="button button-30s">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/play-button-circled.png" alt="Start">
-        </button>
-        <button class="button button-10s">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/stop-circled.png" alt="Stop">
-        </button>
-    </div>
 </div>
 
 <script>
-    // Affichage des salutations en fonction de l'heure
-    function displayGreetings(today) {
-        let greet = 'Timers'; // Texte modifié
-        document.getElementById('greet').innerHTML = greet;
-    }
+function displayGreetings(today) {
+    let hrs = today.getHours();
+    let greet = '';
+    if (hrs < 12) greet = 'Good Morning';
+    else if (hrs >= 12 && hrs <= 17) greet = 'Good Afternoon';
+    else greet = 'Good Evening';
+    document.getElementById('greet').innerHTML = greet;
+}
 
-    // Affichage de la date en français
-    function displayDate(today) {
-        const jours = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
-        const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+function displayDate(today) {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-        const jourSemaine = jours[today.getDay()];
-        const moisAnnee = mois[today.getMonth()];
-        const date = today.getDate();
-        const annee = today.getFullYear();
-        document.getElementById('date').innerHTML = `${jourSemaine}, ${date} ${moisAnnee} ${annee}`;
-    }
+    let dayName = days[today.getDay()];
+    let monthName = monthNames[today.getMonth()];
+    let date = today.getDate();
+    let year = today.getFullYear();
+    document.getElementById('date').innerHTML = `${dayName}, ${monthName} ${date}, ${year}`;
+}
 
-    // Affichage de l'horloge
-    function displayClock(today) {
-        let hour = padZeros(today.getHours());
-        let minutes = padZeros(today.getMinutes());
-        let seconds = padZeros(today.getSeconds());
+function displayClock(today) {
+    let hour = padZeros(twelveHour(today.getHours()));
+    let minutes = padZeros(today.getMinutes());
+    let seconds = padZeros(today.getSeconds());
 
-        document.getElementById('hour').innerHTML = hour;
-        document.getElementById('min').innerHTML = minutes;
-        document.getElementById('sec').innerHTML = seconds;
-    }
+    seconds += today.getHours() >= 12 ? ' pm' : ' am';
 
-    // Fonction pour ajouter un zéro devant les chiffres < 10
-    function padZeros(num) {
-        return num < 10 ? '0' + num : num;
-    }
+    document.getElementById('hour').innerHTML = hour;
+    document.getElementById('min').innerHTML = minutes;
+    document.getElementById('sec').innerHTML = seconds;
+}
 
-    // Mise à jour du widget (salutations, date, heure)
-    function displayWidget() {
-        let today = new Date();
-        displayGreetings(today);
-        displayDate(today);
-        displayClock(today);
-        setTimeout(displayWidget, 1000); // Mise à jour chaque seconde
-    }
+function twelveHour(hour) {
+    return hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
+}
 
-    displayWidget();
+function padZeros(num) {
+    return num < 10 ? '0' + num : num;
+}
+
+function displayWidget() {
+    const today = new Date();
+    displayGreetings(today);
+    displayDate(today);
+    displayClock(today);
+    setTimeout(displayWidget, 1000);
+}
+
+displayWidget();
 </script>
 
 </body>
