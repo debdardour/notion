@@ -7,8 +7,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
+      background-color: #333; /* Changement du fond pour un gris foncé */
+      color: #fff; /* Couleur du texte en blanc pour un bon contraste */
       padding: 10px; /* Réduit le padding autour de la page */
     }
 
@@ -22,13 +22,15 @@
       width: 90%; /* Rétrécit la largeur du tableau */
       max-width: 500px; /* Fixe une taille maximale plus petite */
       margin: 10px auto; /* Réduit les marges verticales */
-      
+      background-color: #444; /* Fond du tableau en gris foncé */
+      border-radius: 20px; /* Arrondi des coins */
+      overflow: hidden; /* Empêche le débordement sur les coins arrondis */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre subtile */
     }
 
     th, td {
       padding: 8px; /* Réduit la taille du padding */
       text-align: center;
-  
       font-size: 0.9em; /* Réduit la taille de la police dans les cellules */
     }
 
@@ -37,20 +39,21 @@
       color: white;
     }
 
-   input {
-  width: 70%;
-  padding: 6px;
-  font-size: 1em;
-  text-align: center;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc; /* Ajoute une bordure fine */
-  border-radius: 5px; /* Garde les bords arrondis */
-  outline: none;
+    input {
+      width: 70%;
+      padding: 6px;
+      font-size: 1em;
+      text-align: center;
+      background-color: #555; /* Fond des inputs en gris foncé */
+      border: 1px solid #666; /* Ajoute une bordure fine plus sombre */
+      border-radius: 10px; /* Bords plus arrondis */
+      color: white; /* Texte en blanc */
+      outline: none;
     }
 
     .unit {
-      background-color: #f4f4f4;
-      color: #333;
+      background-color: #444; /* Couleur de fond des unités */
+      color: #fff;
     }
   </style>
 </head>
