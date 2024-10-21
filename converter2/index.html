@@ -7,9 +7,18 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: transparent; /* Enlève le fond gris de la page */
-      color: #fff; /* Couleur du texte en blanc */
-      padding: 10px; /* Réduit le padding autour de la page */
+      background-color: #333; /* Remet le fond gris foncé pour la page */
+      color: #fff; /* Texte en blanc */
+      padding: 10px;
+    }
+
+    .container {
+      background-color: #444; /* Fond du container en gris foncé */
+      border-radius: 20px; /* Arrondit les coins du container */
+      padding: 20px;
+      max-width: 600px; /* Largeur maximale du container */
+      margin: 20px auto; /* Centré et marge verticale */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre subtile */
     }
 
     h1, h2 {
@@ -19,19 +28,14 @@
     }
 
     table {
-      width: 90%; /* Rétrécit la largeur du tableau */
-      max-width: 500px; /* Fixe une taille maximale plus petite */
-      margin: 10px auto; /* Réduit les marges verticales */
-      background-color: #444; /* Fond du tableau en gris foncé */
-      border-radius: 20px; /* Arrondi des coins */
-      overflow: hidden; /* Empêche le débordement sur les coins arrondis */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre subtile */
+      width: 100%; /* Largeur à 100% du container */
+      margin: 10px 0; /* Marge verticale des tables */
     }
 
     th, td {
-      padding: 8px; /* Réduit la taille du padding */
+      padding: 8px;
       text-align: center;
-      font-size: 0.9em; /* Réduit la taille de la police dans les cellules */
+      font-size: 0.9em;
     }
 
     th {
@@ -44,15 +48,15 @@
       padding: 6px;
       font-size: 1em;
       text-align: center;
-      background-color: #555; /* Fond des inputs en gris foncé */
-      border: 1px solid #666; /* Ajoute une bordure fine plus sombre */
-      border-radius: 10px; /* Bords plus arrondis */
-      color: white; /* Texte en blanc */
+      background-color: #555;
+      border: 1px solid #666;
+      border-radius: 5px;
+      color: white;
       outline: none;
     }
 
     .unit {
-      background-color: #444; /* Couleur de fond des unités */
+      background-color: #444;
       color: #fff;
     }
   </style>
@@ -60,53 +64,55 @@
 
 <body>
 
-  <!-- Conversion Liquides -->
-  <h2>Conversion des Liquides</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Unité</th>
-        <th>Millilitres (ml)</th>
-        <th>Litres (L)</th>
-        <th>Cuillères à soupe (c.s)</th>
-        <th>Cuillères à café (c.c)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="unit">Valeur à convertir</td>
-        <td><input type="number" id="ml_input" oninput="convertLiquids()"></td>
-        <td><input type="number" id="l_input" oninput="convertLiquids()"></td>
-        <td><input type="number" id="cs_input" oninput="convertLiquids()"></td>
-        <td><input type="number" id="cc_input" oninput="convertLiquids()"></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="container">
+    <!-- Conversion Liquides -->
+    <h2>Conversion des Liquides</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Unité</th>
+          <th>Millilitres (ml)</th>
+          <th>Litres (L)</th>
+          <th>Cuillères à soupe (c.s)</th>
+          <th>Cuillères à café (c.c)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="unit">Valeur à convertir</td>
+          <td><input type="number" id="ml_input" oninput="convertLiquids()"></td>
+          <td><input type="number" id="l_input" oninput="convertLiquids()"></td>
+          <td><input type="number" id="cs_input" oninput="convertLiquids()"></td>
+          <td><input type="number" id="cc_input" oninput="convertLiquids()"></td>
+        </tr>
+      </tbody>
+    </table>
 
-  <!-- Conversion Solides -->
-  <h2>Conversion des Solides</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Unité</th>
-        <th>Gramme (g)</th>
-        <th>Kilogramme (kg)</th>
-        <th>Tasse</th>
-        <th>Cuillère à soupe (c.s)</th>
-        <th>Cuillère à café (c.c)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="unit">Valeur à convertir</td>
-        <td><input type="number" id="g_input" oninput="convertSolids()"></td>
-        <td><input type="number" id="kg_input" oninput="convertSolids()"></td>
-        <td><input type="number" id="tasse_input" oninput="convertSolids()"></td>
-        <td><input type="number" id="cs_solides_input" oninput="convertSolids()"></td>
-        <td><input type="number" id="cc_solides_input" oninput="convertSolids()"></td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- Conversion Solides -->
+    <h2>Conversion des Solides</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Unité</th>
+          <th>Gramme (g)</th>
+          <th>Kilogramme (kg)</th>
+          <th>Tasse</th>
+          <th>Cuillère à soupe (c.s)</th>
+          <th>Cuillère à café (c.c)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="unit">Valeur à convertir</td>
+          <td><input type="number" id="g_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="kg_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="tasse_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="cs_solides_input" oninput="convertSolids()"></td>
+          <td><input type="number" id="cc_solides_input" oninput="convertSolids()"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <script>
     // Conversion des liquides
